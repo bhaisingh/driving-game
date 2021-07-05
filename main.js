@@ -1,22 +1,63 @@
-const $carPos = document.querySelector('.car');
+const $carDirection = document.querySelector('.car');
 
-document.addEventListener('keydown', function () {
+function Driver(carDirection) {
+    this.carDirection = carDirection;
+    this.carPosX = 0;
+    this.carPosY = 0;
+}
+
+Driver.prototype.turnCar = function (event) {
     switch (event.key) {
         case 'ArrowRight':
-            $carPos.setAttribute('class', 'car normal');
+            this.carDirection.setAttribute('class', 'car right');
             break;
         case 'ArrowDown':
-            $carPos.setAttribute('class', 'car down');
+            this.carDirection.setAttribute('class', 'car down');
             break;
         case 'ArrowLeft':
-            $carPos.setAttribute('class', 'car left');
+            this.carDirection.setAttribute('class', 'car left');
             break;
         case 'ArrowUp':
-            $carPos.setAttribute('class', 'car up');
+            this.carDirection.setAttribute('class', 'car up');
             break;
         default :
-            $carPos.setAttribute('class', 'car normal');
+            this.carDirection.setAttribute('class', 'car right');
             break;
     }
+}
 
-})
+Driver.prototype.startCar = function () {
+    this.carPosX = this.carDirection.style.left;
+    this.carPosY = this.carDirection.style.top;
+}
+ 
+Driver.prototype.drive = function () {
+    let newPos = parseInt(this.carPosX) + 8;
+    this.carPosX = newPos + 'px';
+    this.carDirection.style.left = this.carPosX;
+    
+    return newPos;
+}
+
+
+const timer = function () {
+    let vehiclePos = user.drive();
+    if (vehiclePos >= screen.width + 150) {
+        clearInterval(timerID);
+    }
+}
+
+const user = new Driver($carDirection);
+let timerID = null;
+
+document.addEventListener('keydown', function () {
+    if (event.code === 'Space') { 
+        timerID = setInterval(timer, 16);
+    } else {
+        user.turnCar(event);
+    }
+});
+
+document.addEventListener('DOMContentLoader', function () {
+    user.startCar();
+});
