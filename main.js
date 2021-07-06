@@ -49,10 +49,17 @@ const timer = function () {
 
 const user = new Driver($carDirection);
 let timerID = null;
+let startCounter = true;
 
 document.addEventListener('keydown', function () {
-    if (event.code === 'Space') { 
-        timerID = setInterval(timer, 16);
+    if (event.code === 'Space') {
+        if (startCounter) { 
+            timerID = setInterval(timer, 16);
+            startCounter = false;
+        } else {
+            clearInterval(timerID);
+            startCounter = true;
+        }
     } else {
         user.turnCar(event);
     }
