@@ -1,10 +1,15 @@
 * {
     background-color: green;
+    z-index: 0;
 }
 
 .car {
-    position: relative;
+    position: absolute;
     height: 150px;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    z-index: 1;
 }
 
 .car.down {
