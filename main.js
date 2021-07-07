@@ -32,10 +32,36 @@ Driver.prototype.startCar = function () {
 }
  
 Driver.prototype.drive = function () {
-    let newPos = parseInt(this.carPosX) + 8;
-    this.carPosX = newPos + 'px';
-    this.carDirection.style.left = this.carPosX;
-    
+    let currentDirection = this.carDirection.getAttribute('class');
+    let newPos = 0;
+    switch (currentDirection) {
+        case 'car right':
+            newPos = parseInt(this.carPosX) + 8;
+            this.carPosX = newPos + 'px';
+            this.carDirection.style.left = this.carPosX;
+            break;
+        case 'car down':
+            newPos = parseInt(this.carPosY) + 8;
+            this.carPosY = newPos + 'px';
+            this.carDirection.style.top = this.carPosY;
+            break;
+        case 'car left':
+            newPos = parseInt(this.carPosX) - 8;
+            this.carPosX = newPos + 'px';
+            this.carDirection.style.left = this.carPosX;
+            break;
+        case 'car up':
+            newPos = parseInt(this.carPosY) - 8;
+            this.carPosY = newPos + 'px';
+            this.carDirection.style.top = this.carPosY;
+            break;
+        default:
+            newPos = parseInt(this.carPosX) + 8;
+            this.carPosX = newPos + 'px';
+            this.carDirection.style.left = this.carPosX;
+            break;
+    }
+        
     return newPos;
 }
 
